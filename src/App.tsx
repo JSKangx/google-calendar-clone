@@ -1,6 +1,6 @@
+import Header from "@/components/layouts/Header";
 import "./App.css";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "@/components/layouts/Sidebar";
 
 function App() {
   return (
