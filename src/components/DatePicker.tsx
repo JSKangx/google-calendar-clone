@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ko } from "react-day-picker/locale";
-import "@/styles/calendar.scss";
+import "@/styles/datePicker.scss";
 
-export default function Calendar() {
+export default function DatePicker() {
   const [selected, setSelected] = useState<Date | undefined>();
   const defaultClassNames = getDefaultClassNames();
 
@@ -25,7 +25,7 @@ export default function Calendar() {
         day: `${defaultClassNames.day} rounded-full cursor-pointer text-[10px] hover:bg-[#E8EBEE] size-6`,
         selected: `bg-[#B1D7EE] rounded-full size-6 !hover:bg-[#B9D6EC]`,
         day_button: `size-6 rounded-full m-[2px]`,
-        today: `size-6 bg-[#0A52C4] text-white rounded-full !hover:bg-[#0A52C4]`,
+        today: `size-6 bg-primary text-white rounded-full !hover:bg-primary`,
         weekday: `${defaultClassNames.weekday} !text-[10px]`,
         month_grid: `${defaultClassNames.month_grid}`,
         month_caption: `${defaultClassNames.month_caption} !text-[14px]`,

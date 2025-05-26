@@ -1,10 +1,69 @@
-@import "react-day-picker/style.css";
-
-.rdp-root {
-  --rdp-day-height: 24px;
-  --rdp-day-width: 24px;
+.rbc-calendar {
+  .rbc-time-view {
+    border: none;
+  }
 }
 
-.rdp-chevron polygon {
-  fill: currentColor;
+.rbc-toolbar {
+  display: none;
+}
+
+.rbc-row-segment {
+  .rbc-event {
+    width: 152px;
+  }
+}
+
+.rbc-event,
+.rbc-day-slot .rbc-event {
+  background-color: #f09200;
+  border: none;
+}
+
+.rbc-time-header-content {
+  border: none;
+
+  .rbc-row.rbc-time-header-cell {
+    min-height: 84px;
+    border: none;
+
+    .rbc-header {
+      z-index: 10;
+      border: none;
+    }
+  }
+
+  .rbc-allday-cell {
+    max-height: 62px;
+    overflow: hidden;
+
+    .rbc-event {
+      height: 20px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+  }
+}
+
+.rbc-time-content {
+  .rbc-time-gutter {
+    .rbc-timeslot-group {
+      border: none;
+      .rbc-time-slot {
+        position: relative;
+      }
+      .rbc-label {
+        color: #444746;
+        font-size: 11px;
+        position: relative;
+        top: -13px;
+      }
+    }
+  }
+}
+
+.rbc-day-slot {
+  .rbc-time-slot {
+    border: none;
+  }
 }

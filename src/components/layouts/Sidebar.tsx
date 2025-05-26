@@ -1,4 +1,4 @@
-import Calendar from "@/components/Calendar";
+import DatePicker from "@/components/DatePicker";
 import CreateButton from "@/components/common/CreateButton";
 
 export default function Sidebar() {
@@ -8,7 +8,7 @@ export default function Sidebar() {
         <CreateButton />
       </div>
       <div className="pl-[14px]">
-        <Calendar />
+        <DatePicker />
       </div>
     </aside>
   );

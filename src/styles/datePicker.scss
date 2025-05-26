@@ -1,0 +1,11 @@
+@import "react-day-picker/style.css";
+@import "react-big-calendar/lib/sass/styles";
+
+.rdp-root {
+  --rdp-day-height: 24px;
+  --rdp-day-width: 24px;
+}
+
+.rdp-chevron polygon {
+  fill: currentColor;
+}
