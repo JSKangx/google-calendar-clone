@@ -6,6 +6,8 @@ import moment from "moment";
 import "./App.css";
 import "@/styles/calendar.scss";
 import { getFormattedDate } from "@/utils/getFormattedDate";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 const events = [
   {
@@ -32,6 +34,8 @@ const events = [
 
 function App() {
   const localizer = momentLocalizer(moment);
+  const dateString = useSelector((state: RootState) => state.dateStore.date);
+  const date = dateString ? new Date(dateString) : undefined;
 
   return (
     <div className="flex flex-col h-screen w-screen">
@@ -44,6 +48,7 @@ function App() {
               defaultView="week"
               localizer={localizer}
               events={events}
+              date={date}
               startAccessor="start"
               endAccessor="end"
               formats={{

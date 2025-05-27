@@ -1,18 +1,26 @@
-import { useState } from "react";
 import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ko } from "react-day-picker/locale";
 import "@/styles/datePicker.scss";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
+import { setDate } from "@/store/dateSlice";
 
 export default function DatePicker() {
-  const [selected, setSelected] = useState<Date | undefined>();
+  const dateString = useSelector((state: RootState) => state.dateStore.date);
+  const date = dateString ? new Date(dateString) : undefined;
+  const dispatch = useDispatch();
   const defaultClassNames = getDefaultClassNames();
 
   return (
     <DayPicker
       locale={ko}
       mode="single"
-      selected={selected}
-      onSelect={setSelected}
+      selected={date}
+      onSelect={(selected) => {
+        if (selected) {
+          dispatch(setDate(selected.toISOString()));
+        }
+      }}
       formatters={{
         formatCaption(month) {
           return month.toLocaleDateString("ko-KR", {
