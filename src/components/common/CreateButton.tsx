@@ -17,7 +17,7 @@ export default function CreateButton({
       type="button"
       onClick={onClick}
       className={clsx(
-        "inline-flex items-center gap-2 px-4 py-4 rounded-xl bg-white shadow-sm",
+        "inline-flex items-center gap-2 px-4 py-4 rounded-xl bg-white shadow-lg",
         "text-gray-800 hover:bg-gray-50 border border-gray-200",
         className
       )}
