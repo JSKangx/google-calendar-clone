@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="flex items-center *:flex *:items-center h-16 w-full px-2 py-3 bg-[#F7FAFD] text-gray-90">
-      <section className="w-62">
+      <section className="sm:flex sm:w-62 sm:shrink-0 sm:opacity-100 w-0 opacity-0">
         <div className="flex justify-center items-center rounded-full size-12 hover:bg-[#E8EBEE] cursor-pointer">
           <HamburgerIcon className="size-4 text-[#444746]" />
         </div>
@@ -32,7 +32,7 @@ export default function Header() {
         <span className="font-sans text-[22px]">Calendar</span>
       </section>
 
-      <section>
+      <section className="shrink-0">
         <Button className="mr-6 py-2 px-6 hover:bg-[#E8EBEE]">오늘</Button>
         <div className="flex mr-7">
           <IconWrapper wrapperSize="size-8">

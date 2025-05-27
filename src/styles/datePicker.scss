@@ -6,6 +6,15 @@
   --rdp-day-width: 24px;
 }
 
+.rdp-nav button {
+  width: 28px;
+  height: 28px;
+}
+
+.rdp-month .rdp-month_caption {
+  padding-left: 10px;
+}
+
 .rdp-chevron polygon {
   fill: currentColor;
 }

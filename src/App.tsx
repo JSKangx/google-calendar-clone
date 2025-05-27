@@ -43,7 +43,7 @@ function App() {
       <div className="flex flex-1 h-full">
         <Sidebar />
         <main className="bg-[#F7FAFD] w-full">
-          <div className="bg-white rounded-tl-3xl h-full">
+          <div className="h-full">
             <Calendar
               defaultView="week"
               localizer={localizer}
@@ -62,6 +62,7 @@ function App() {
                   header: CustomWeekHeader,
                 },
               }}
+              className="max-w-[1150px] max-h-[720px] bg-white rounded-3xl overflow-hidden"
             />
           </div>
         </main>
