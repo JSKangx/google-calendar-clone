@@ -10,7 +10,7 @@
 
 .rbc-row-segment {
   .rbc-event {
-    width: 152px;
+    width: 95%;
   }
 }
 
@@ -22,11 +22,9 @@
 
 .rbc-time-header-content {
   border: none;
-
   .rbc-row.rbc-time-header-cell {
     min-height: 84px;
     border: none;
-
     .rbc-header {
       z-index: 10;
       border: none;
@@ -60,10 +58,26 @@
       }
     }
   }
+  .rbc-day-slot.rbc-time-column {
+    .rbc-time-slot {
+      border: none;
+    }
+  }
 }
 
-.rbc-day-slot {
-  .rbc-time-slot {
-    border: none;
-  }
+.rbc-current-time-indicator {
+  background-color: #db372c;
+  height: 2px;
+}
+
+.rbc-current-time-indicator::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: #db372c;
+  position: absolute;
+  left: -7px;
+  top: -5px;
+  border-radius: 50%;
 }

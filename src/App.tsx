@@ -1,9 +1,9 @@
 import Header from "@/components/layouts/Header";
-import "./App.css";
 import Sidebar from "@/components/layouts/Sidebar";
+import CustomWeekHeader from "@/components/calendar/CustomWeekHeader";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import CustomWeekHeader from "@/components/calendar/CustomWeekHeader";
+import "./App.css";
 import "@/styles/calendar.scss";
 import { getFormattedDate } from "@/utils/getFormattedDate";
 
