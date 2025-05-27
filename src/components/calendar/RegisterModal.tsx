@@ -9,8 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Clock } from "lucide-react";
 import getDay from "@/utils/getDay";
-import getStartTime from "@/utils/getStartTime";
-import { cn } from "@/lib/utils";
+import { getStartTime } from "@/utils/getStartTime";
 import DatePicker from "@/components/DatePicker";
 import {
   DropdownMenu,
@@ -18,6 +17,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import getTimeOptions from "@/utils/getTimeOptions";
 
 export default function RegisterModal() {
   // 뱃지 선택 상태관리
@@ -40,20 +47,23 @@ export default function RegisterModal() {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
-    setIsEditing(false);
   };
 
   // 일정 입력 드롭다운 상태 관리
   const [isDropOpen, setIsDropOpen] = useState<boolean>(false);
   const dateString = useSelector((state: RootState) => state.dateStore.date);
+  // 달력 선택된 날짜 기준
   const date = new Date(dateString);
   const month = date.getMonth() + 1;
   const today = date.getDate();
   const day = date.getDay();
-  const hour = date.getHours();
-  const min = date.getMinutes();
-
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  // 현재 시각 기준
+  const now = new Date();
+  const hour = now.getHours();
+  const min = now.getMinutes();
+  // 시간 옵션
+  const timeOptions = getTimeOptions();
+  console.log(timeOptions);
 
   return (
     <Dialog
@@ -98,40 +108,24 @@ export default function RegisterModal() {
 
                 <div className="flex items-center ml-3 gap-[14px]">
                   <Clock className="size-5" />
-                  <div
-                    className={cn(
-                      "rounded-sm p-2 flex-1 ",
-                      isEditing ? "" : "hover:bg-gray-20"
-                    )}
-                  >
-                    <div className="flex gap-4 text-sm">
-                      <div className="relative">
+                  <div className="flex-1">
+                    <div className="flex text-sm">
+                      {/* 달력 선택 날짜 */}
+                      <div className="relative hover:bg-gray-20 p-2 rounded-sm shrink-0 mr-3">
                         <DropdownMenu
                           open={isDropOpen}
                           onOpenChange={setIsDropOpen}
                         >
-                          {isEditing ? (
-                            <div>
-                              <div className="rounded-sm p-3 bg-gray-20">
-                                {`${month}월 ${today}일 (${getDay(day)})`}
-                              </div>
-                            </div>
-                          ) : (
-                            <>
-                              <DropdownMenuTrigger>
-                                <p
-                                  className="mb-0.5 hover:underline cursor-pointer"
-                                  onClick={() => setIsEditing(true)}
-                                >{`${month}월 ${today}일 (${getDay(day)})`}</p>
-                              </DropdownMenuTrigger>
-                              <p className="text-xs text-gray-60 font-normal">
-                                <span className="after:ml-1 after:mr-1 after:content-['·']">
-                                  시간대
-                                </span>
-                                <span>반복 안함</span>
-                              </p>
-                            </>
-                          )}
+                          <DropdownMenuTrigger>
+                            <p className="mb-0.5 hover:underline cursor-pointer">{`${month}월 ${today}일 
+                            (${getDay(day)})`}</p>
+                          </DropdownMenuTrigger>
+                          <p className="text-xs text-gray-60 font-normal">
+                            <span className="after:ml-1 after:mr-1 after:content-['·']">
+                              시간대
+                            </span>
+                            <span>반복 안함</span>
+                          </p>
                           <DropdownMenuContent className="relative -right-15 -top-1">
                             <DropdownMenuItem className="focus:bg-white">
                               <DatePicker
@@ -142,39 +136,33 @@ export default function RegisterModal() {
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
-                      {isEditing ? (
-                        <div className="rounded-sm p-3 bg-gray-20">
-                          {getStartTime(hour, min)}
-                        </div>
-                      ) : (
-                        <span
-                          className="hover:underline cursor-pointer"
-                          onClick={() => setIsEditing(true)}
-                        >
-                          {getStartTime(hour, min)}
-                        </span>
-                      )}
-                      <span
-                        className={cn(isEditing ? "flex items-center" : "")}
-                      >
-                        -
-                      </span>
-                      {isEditing ? (
-                        <>
-                          <div className="rounded-sm p-3 bg-gray-20">
-                            {getStartTime(hour + 1, min)}
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <span
-                            className="hover:underline cursor-pointer"
-                            onClick={() => setIsEditing(true)}
-                          >
-                            {getStartTime(hour + 1, min)}
-                          </span>
-                        </>
-                      )}
+
+                      {/* 이벤트 시간 */}
+                      <Select defaultValue={getStartTime(hour, min)}>
+                        <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {timeOptions.map((item) => (
+                            <SelectItem key={item.label} value={item.label}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <span className="flex items-center">-</span>
+                      <Select defaultValue={getStartTime(hour + 1, min)}>
+                        <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {timeOptions.map((item) => (
+                            <SelectItem key={item.label} value={item.label}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                 </div>

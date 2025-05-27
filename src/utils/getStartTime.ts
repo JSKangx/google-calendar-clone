@@ -1,4 +1,4 @@
-export default function getStartTime(hour: number, min: number) {
+export function getStartTime(hour: number, min: number) {
   // (1) 오전/오후는 원래 hour 기준
   const period = hour < 12 ? "오전" : "오후";
 
