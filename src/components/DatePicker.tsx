@@ -5,9 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import { setDate } from "@/store/dateSlice";
 
-export default function DatePicker() {
+interface Props {
+  className?: string;
+  setIsDropOpen?: () => void;
+}
+
+export default function DatePicker({ className, setIsDropOpen }: Props) {
   const dateString = useSelector((state: RootState) => state.dateStore.date);
-  const date = dateString ? new Date(dateString) : undefined;
+  const date = new Date(dateString);
   const dispatch = useDispatch();
   const defaultClassNames = getDefaultClassNames();
 
@@ -19,6 +24,7 @@ export default function DatePicker() {
       onSelect={(selected) => {
         if (selected) {
           dispatch(setDate(selected.toISOString()));
+          setIsDropOpen?.();
         }
       }}
       formatters={{
@@ -33,13 +39,14 @@ export default function DatePicker() {
         day: `${defaultClassNames.day} rounded-full cursor-pointer text-[10px] hover:bg-[#E8EBEE] size-6`,
         selected: `bg-[#B1D7EE] rounded-full size-6 !hover:bg-[#B9D6EC]`,
         day_button: `size-6 rounded-full m-[2px]`,
-        today: `size-6 bg-primary text-white rounded-full !hover:bg-primary`,
+        today: `size-6 bg-blue text-white rounded-full !hover:bg-blue`,
         weekday: `${defaultClassNames.weekday} !text-[10px]`,
         month_grid: `${defaultClassNames.month_grid}`,
         month_caption: `${defaultClassNames.month_caption} !text-[14px]`,
         root: `${defaultClassNames.root}`,
         chevron: `${defaultClassNames.chevron} size-[14px] text-[#444746]`,
       }}
+      className={className}
     />
   );
 }

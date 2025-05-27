@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitailState {
-  date: string | undefined;
+  date: string;
 }
 
 const initialState: InitailState = {

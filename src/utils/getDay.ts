@@ -1,5 +1,7 @@
 export default function getDay(index: number) {
   switch (index) {
+    case 0:
+      return "일요일";
     case 1:
       return "월요일";
     case 2:
@@ -12,7 +14,5 @@ export default function getDay(index: number) {
       return "금요일";
     case 6:
       return "토요일";
-    case 7:
-      return "일요일";
   }
 }
