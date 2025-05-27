@@ -13,8 +13,7 @@ export default function CreateButton({
   onClick,
 }: CreateButtonProps) {
   return (
-    <button
-      type="button"
+    <div
       onClick={onClick}
       className={clsx(
         "inline-flex items-center gap-2 px-4 py-4 rounded-xl bg-white shadow-lg",
@@ -25,6 +24,6 @@ export default function CreateButton({
       <Plus className="size-6 stroke-[2]" />
       <span className="text-sm font-medium">만들기</span>
       <ChevronDown className="w-4 h-4" />
-    </button>
+    </div>
   );
 }

@@ -8,6 +8,7 @@ import "@/styles/calendar.scss";
 import { getFormattedDate } from "@/utils/getFormattedDate";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
+import RegisterModal from "@/components/calendar/RegisterModal";
 
 const events = [
   {
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen w-screen">
+      <RegisterModal />
       <Header />
       <div className="flex flex-1 h-full">
         <Sidebar />

@@ -1,9 +1,11 @@
 import dateSlice from "@/store/dateSlice";
+import modalSlice from "@/store/modalSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
   reducer: {
     dateStore: dateSlice.reducer,
+    modalStore: modalSlice.reducer,
   },
 });
 
