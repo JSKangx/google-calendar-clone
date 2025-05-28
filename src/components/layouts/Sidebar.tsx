@@ -1,4 +1,4 @@
-import DatePicker from "@/components/DatePicker";
+import DatePicker from "@/components/calendar/DatePicker";
 import CreateButton from "@/components/common/CreateButton";
 import {
   DropdownMenu,
