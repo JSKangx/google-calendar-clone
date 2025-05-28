@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import getTimeOptions from "@/utils/getTimeOptions";
+import { getTimeOptions } from "@/utils/getTimeOptions";
 import { parseTimeLabel } from "@/utils/parseTimeLabel";
 import type { FormValues } from "@/types/types";
 import { convertToDate } from "@/utils/convertToDate";
@@ -115,14 +115,10 @@ export default function RegisterModal() {
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={() => handleCloseModal()}
-      className="fixed inset-0 z-10"
-    >
+    <Dialog open={isOpen} onClose={() => handleCloseModal()} className="z-10">
       <div className="fixed inset-0 flex items-center justify-center">
-        <div className="fixed bottom-10 left-10">
-          <DialogPanel className="flex flex-col w-[440px] h-[514px] bg-gray-10 rounded-2xl p-4 drop-shadow-lg/50">
+        <div className="fixed bottom-60 left-10">
+          <DialogPanel className="flex flex-col w-[440px] bg-gray-10 rounded-2xl p-4 drop-shadow-lg/50">
             <section className="flex mb-5">
               <IconWrapper wrapperSize="size-4 ml-auto">
                 <X className="size-4" onClick={() => handleCloseModal()} />

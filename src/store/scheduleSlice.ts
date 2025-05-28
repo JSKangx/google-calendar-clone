@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Schedule {
+export interface Schedule {
   id: number;
   title: string;
   start: string;

@@ -9,8 +9,21 @@ import { getFormattedDate } from "@/utils/getFormattedDate";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import RegisterModal from "@/components/calendar/RegisterModal";
+import { useState } from "react";
+import SchedulDetailModal from "@/components/calendar/SchedulDetailModal";
+import { type Schedule } from "@/store/scheduleSlice";
 
 function App() {
+  // 일정 상세 모달 오픈 상태 관리
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
+  // 일정 상세 데이터 상태 관리
+  const [scheduleDetail, setScheduleDetail] = useState<Schedule>({
+    id: 9999,
+    title: "",
+    start: new Date().toISOString(),
+    end: new Date().toISOString(),
+  });
+
   const localizer = momentLocalizer(moment);
   const dateString = useSelector((state: RootState) => state.dateStore.date);
   const schedules = useSelector(
@@ -26,6 +39,11 @@ function App() {
   return (
     <div className="flex flex-col h-screen w-screen">
       <RegisterModal />
+      <SchedulDetailModal
+        isOpen={isDetailModalOpen}
+        setIsOpen={() => setIsDetailModalOpen(false)}
+        schedule={scheduleDetail}
+      />
       <Header />
       <div className="flex flex-1 h-full">
         <Sidebar />
@@ -38,6 +56,14 @@ function App() {
               date={date}
               startAccessor="start"
               endAccessor="end"
+              onSelectEvent={(event) => {
+                setScheduleDetail({
+                  ...event,
+                  start: event.start.toISOString(),
+                  end: event.end.toISOString(),
+                });
+                setIsDetailModalOpen(true);
+              }}
               formats={{
                 timeGutterFormat: (date) => {
                   const hour = moment(date).hour();

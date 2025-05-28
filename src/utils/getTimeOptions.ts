@@ -12,7 +12,7 @@ export interface TimeOption {
   };
 }
 
-export default function getTimeOptions() {
+export function getTimeOptions() {
   const timeOptions: TimeOption[] = [];
   let id = 1;
 
