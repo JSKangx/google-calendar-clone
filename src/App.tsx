@@ -6,7 +6,6 @@ const ScheduleDetailModal = lazy(
 );
 import Header from "@/components/layouts/Header";
 import Sidebar from "@/components/layouts/Sidebar";
-
 import CustomWeekHeader from "@/components/calendar/CustomWeekHeader";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -17,6 +16,10 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import { useState } from "react";
 import { type Schedule } from "@/store/scheduleSlice";
+import HomeIcon from "@/assets/icons/home.svg?react";
+import CheckCircle from "@/assets/icons/check_circle_blue.svg?react";
+import HumanIcon from "@/assets/icons/human.svg?react";
+import LocationIcon from "@/assets/icons/location.svg?react";
 
 function App() {
   // 일정 상세 모달 오픈 상태 관리
@@ -60,8 +63,8 @@ function App() {
       <Header />
       <div className="flex flex-1 h-full">
         <Sidebar />
-        <main className="bg-[#F7FAFD] w-full">
-          <div className="h-full">
+        <main className="flex bg-[#F7FAFD] w-full">
+          <div className="flex-1 h-full">
             <Calendar
               defaultView={viewType}
               view={viewType}
@@ -92,6 +95,12 @@ function App() {
               className="max-w-[1150px] max-h-[720px] bg-white rounded-3xl overflow-hidden"
             />
           </div>
+          <section className="flex flex-col items-center justify-start w-13 pt-4 pr-2 gap-8 *:size-6">
+            <HomeIcon />
+            <CheckCircle className="size-5" />
+            <HumanIcon />
+            <LocationIcon />
+          </section>
         </main>
       </div>
     </div>
