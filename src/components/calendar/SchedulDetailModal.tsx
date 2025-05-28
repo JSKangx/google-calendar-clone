@@ -56,7 +56,6 @@ export default function SchedulDetailModal({
       }
     }
   };
-  console.log(schedules);
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose()}>

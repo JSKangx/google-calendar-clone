@@ -10,17 +10,44 @@ import CheckCircleIcon from "@/assets/icons/check_circle.svg?react";
 import MenuIcon from "@/assets/icons/menu.svg?react";
 import ProfileIcon from "@/assets/icons/profile.svg?react";
 import IconWrapper from "@/components/common/IconWrapper";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "@/store/dateSlice";
+import type { RootState } from "@/store/store";
 
 export default function Header() {
-  const date = new Date();
-  const day = date.getDate();
+  const today = new Date();
+  const day = today.getDate();
+
+  // 선택한 날짜 상태 관리
+  const selectedDateString = useSelector(
+    (state: RootState) => state.dateStore.date
+  );
+  const selectedDate = new Date(selectedDateString);
+  const { selectedYear, selectedMonth, selectedDay } = {
+    selectedYear: selectedDate.getFullYear(),
+    selectedMonth: selectedDate.getMonth() + 1,
+    selectedDay: selectedDate.getDate(),
+  };
 
   const dispatch = useDispatch();
-
   const onTodayBtnClick = () => {
-    dispatch(setDate(date.toISOString()));
+    dispatch(setDate(today.toISOString()));
+  };
+
+  // 화살표로 달력 이동하기
+  const onPreviousClick = () => {
+    dispatch(
+      setDate(
+        new Date(selectedYear, selectedMonth - 1, selectedDay - 7).toISOString()
+      )
+    );
+  };
+  const onNextClick = () => {
+    dispatch(
+      setDate(
+        new Date(selectedYear, selectedMonth - 1, selectedDay + 7).toISOString()
+      )
+    );
   };
 
   return (
@@ -49,13 +76,19 @@ export default function Header() {
         </Button>
         <div className="flex mr-7">
           <IconWrapper wrapperSize="size-8">
-            <LeftArrowIcon className="size-3 text-[#444746]" />
+            <LeftArrowIcon
+              className="size-3 text-[#444746]"
+              onClick={() => onPreviousClick()}
+            />
           </IconWrapper>
           <IconWrapper wrapperSize="size-8">
-            <RightArrowIcon className="size-3 text-[#444746]" />
+            <RightArrowIcon
+              className="size-3 text-[#444746]"
+              onClick={() => onNextClick()}
+            />
           </IconWrapper>
         </div>
-        <span className="text-[22px]">2025년 5월</span>
+        <span className="text-[22px]">{`${selectedYear}년 ${selectedMonth}월`}</span>
       </section>
 
       <section className="flex gap-1 ml-auto mr-2 text-[#444746]">

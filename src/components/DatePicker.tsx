@@ -27,6 +27,7 @@ export default function DatePicker({ className, setIsDropOpen }: Props) {
           setIsDropOpen?.();
         }
       }}
+      month={date}
       formatters={{
         formatCaption(month) {
           return month.toLocaleDateString("ko-KR", {
