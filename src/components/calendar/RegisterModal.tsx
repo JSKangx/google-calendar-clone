@@ -85,14 +85,24 @@ export default function RegisterModal() {
 
   const onSubmit = (formData: FormValues) => {
     const baseDate = new Date(dateString); // DatePicker로 선택된 날짜
-
     const startTime = parseTimeLabel(formData.startTime);
     const endTime = parseTimeLabel(formData.endTime);
+    const start = convertToDate(baseDate, startTime);
+    const end = convertToDate(baseDate, endTime);
+
+    // 제목 입력값 검증
+    if (formData.title.trim() === "") alert("일정 제목은 필수 입력입니다.");
+
+    // 시간 입력값 검증
+    if (start.getTime() > end.getTime())
+      alert(
+        "일정 시작 시각보다 더 빠른 시각을 종료 시각으로 설정할 수 없습니다."
+      );
 
     const payload = {
       title: formData.title,
-      start: convertToDate(baseDate, startTime),
-      end: convertToDate(baseDate, endTime),
+      start,
+      end,
     };
 
     console.log(payload);
