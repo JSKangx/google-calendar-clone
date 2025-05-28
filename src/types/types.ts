@@ -10,3 +10,9 @@ export interface IconWrapperProps {
   className?: string;
   children: React.ReactNode;
 }
+
+export type FormValues = {
+  title: string;
+  startTime: string;
+  endTime: string;
+};

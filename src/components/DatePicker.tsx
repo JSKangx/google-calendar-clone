@@ -37,9 +37,9 @@ export default function DatePicker({ className, setIsDropOpen }: Props) {
       }}
       classNames={{
         day: `${defaultClassNames.day} rounded-full cursor-pointer text-[10px] hover:bg-[#E8EBEE] size-6`,
-        selected: `bg-[#B1D7EE] rounded-full size-6 !hover:bg-[#B9D6EC]`,
+        selected: `bg-[#B1D7EE] rounded-full size-6 hover:bg-[#B9D6EC]`,
         day_button: `size-6 rounded-full m-[2px]`,
-        today: `size-6 bg-blue text-white rounded-full !hover:bg-blue`,
+        today: `size-6 bg-[#0a52c4] text-white rounded-full hover:bg-[#0a52c4]`,
         weekday: `${defaultClassNames.weekday} !text-[10px]`,
         month_grid: `${defaultClassNames.month_grid}`,
         month_caption: `${defaultClassNames.month_caption} !text-[14px]`,

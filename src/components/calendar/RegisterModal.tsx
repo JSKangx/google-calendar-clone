@@ -11,6 +11,7 @@ import { Clock } from "lucide-react";
 import getDay from "@/utils/getDay";
 import { getStartTime } from "@/utils/getStartTime";
 import DatePicker from "@/components/DatePicker";
+import { Controller, useForm } from "react-hook-form";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,6 +26,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import getTimeOptions from "@/utils/getTimeOptions";
+import { parseTimeLabel } from "@/utils/parseTimeLabel";
+import type { FormValues } from "@/types/types";
+import { convertToDate } from "@/utils/convertToDate";
 
 export default function RegisterModal() {
   // 뱃지 선택 상태관리
@@ -47,6 +51,9 @@ export default function RegisterModal() {
   const dispatch = useDispatch();
   const handleCloseModal = () => {
     dispatch(closeModal());
+    setValue("title", "");
+    setValue("startTime", getStartTime(hour, min));
+    setValue("endTime", getStartTime(hour + 1, min));
   };
 
   // 일정 입력 드롭다운 상태 관리
@@ -54,16 +61,42 @@ export default function RegisterModal() {
   const dateString = useSelector((state: RootState) => state.dateStore.date);
   // 달력 선택된 날짜 기준
   const date = new Date(dateString);
-  const month = date.getMonth() + 1;
-  const today = date.getDate();
-  const day = date.getDay();
+  const { month, today, day } = {
+    month: date.getMonth() + 1,
+    today: date.getDate(),
+    day: date.getDay(),
+  };
   // 현재 시각 기준
   const now = new Date();
   const hour = now.getHours();
   const min = now.getMinutes();
+
   // 시간 옵션
   const timeOptions = getTimeOptions();
-  console.log(timeOptions);
+
+  // 이벤트 생성
+  const { control, handleSubmit, setValue } = useForm({
+    defaultValues: {
+      title: "",
+      startTime: getStartTime(hour, min),
+      endTime: getStartTime(hour + 1, min),
+    },
+  });
+
+  const onSubmit = (formData: FormValues) => {
+    const baseDate = new Date(dateString); // DatePicker로 선택된 날짜
+
+    const startTime = parseTimeLabel(formData.startTime);
+    const endTime = parseTimeLabel(formData.endTime);
+
+    const payload = {
+      title: formData.title,
+      start: convertToDate(baseDate, startTime),
+      end: convertToDate(baseDate, endTime),
+    };
+
+    console.log(payload);
+  };
 
   return (
     <Dialog
@@ -73,7 +106,7 @@ export default function RegisterModal() {
     >
       <div className="fixed inset-0 flex items-center justify-center">
         <div className="fixed bottom-10 left-10">
-          <DialogPanel className="w-[440px] h-[514px] bg-gray-10 rounded-2xl p-4 drop-shadow-lg/50">
+          <DialogPanel className="flex flex-col w-[440px] h-[514px] bg-gray-10 rounded-2xl p-4 drop-shadow-lg/50">
             <section className="flex mb-5">
               <IconWrapper wrapperSize="size-4 ml-auto">
                 <X className="size-4" onClick={() => handleCloseModal()} />
@@ -81,9 +114,19 @@ export default function RegisterModal() {
             </section>
 
             <section>
-              <form className="flex flex-col gap-6">
+              <form
+                className="flex flex-col gap-6"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div className="ml-13">
-                  <Input classNames="mb-3" />
+                  <Controller
+                    name="title"
+                    control={control}
+                    render={({ field }) => (
+                      <Input {...field} classNames="mb-3" />
+                    )}
+                  />
+
                   <div className="flex gap-2">
                     <Badge
                       selected={isSelected.event}
@@ -138,34 +181,57 @@ export default function RegisterModal() {
                       </div>
 
                       {/* 이벤트 시간 */}
-                      <Select defaultValue={getStartTime(hour, min)}>
-                        <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeOptions.map((item) => (
-                            <SelectItem key={item.label} value={item.label}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        control={control}
+                        name="startTime"
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {timeOptions.map((item) => (
+                                <SelectItem key={item.id} value={item.label}>
+                                  {item.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
+
                       <span className="flex items-center">-</span>
-                      <Select defaultValue={getStartTime(hour + 1, min)}>
-                        <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeOptions.map((item) => (
-                            <SelectItem key={item.label} value={item.label}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+
+                      <Controller
+                        control={control}
+                        name="endTime"
+                        render={({ field }) => (
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <SelectTrigger className="rounded-sm px-3 py-7 hover:bg-gray-20 border-0 shadow-none">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {timeOptions.map((item) => (
+                                <SelectItem key={item.id} value={item.label}>
+                                  {item.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
                     </div>
                   </div>
                 </div>
+                <button className="bg-primary-50 text-white text-[16px] font-medium px-6 py-2 rounded-full hover:bg-primary-40 active:bg-primary-60 transition-colors ml-auto">
+                  저장
+                </button>
               </form>
             </section>
           </DialogPanel>

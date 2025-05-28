@@ -14,7 +14,7 @@ const events = [
   {
     title: "문성욱 온라인",
     start: new Date(2025, 4, 28, 0, 30),
-    end: new Date(2025, 4, 28, 13, 30),
+    end: new Date(2025, 4, 30, 13, 30),
   },
   {
     title: "강진수 온라인",
