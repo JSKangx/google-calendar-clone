@@ -29,6 +29,7 @@ import getTimeOptions from "@/utils/getTimeOptions";
 import { parseTimeLabel } from "@/utils/parseTimeLabel";
 import type { FormValues } from "@/types/types";
 import { convertToDate } from "@/utils/convertToDate";
+import { addSchedule } from "@/store/scheduleSlice";
 
 export default function RegisterModal() {
   // 뱃지 선택 상태관리
@@ -83,6 +84,10 @@ export default function RegisterModal() {
     },
   });
 
+  // 입력값 제출
+  const schedules = useSelector(
+    (state: RootState) => state.scheduleStore.schedules
+  );
   const onSubmit = (formData: FormValues) => {
     const baseDate = new Date(dateString); // DatePicker로 선택된 날짜
     const startTime = parseTimeLabel(formData.startTime);
@@ -100,12 +105,13 @@ export default function RegisterModal() {
       );
 
     const payload = {
+      id: schedules[schedules.length - 1].id + 1,
       title: formData.title,
-      start,
-      end,
+      start: start.toISOString(),
+      end: end.toISOString(),
     };
 
-    console.log(payload);
+    dispatch(addSchedule(payload));
   };
 
   return (

@@ -10,32 +10,17 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import RegisterModal from "@/components/calendar/RegisterModal";
 
-const events = [
-  {
-    title: "문성욱 온라인",
-    start: new Date(2025, 4, 28, 0, 30),
-    end: new Date(2025, 4, 30, 13, 30),
-  },
-  {
-    title: "강진수 온라인",
-    start: new Date(2025, 4, 27, 0, 0),
-    end: new Date(2025, 4, 28, 0, 0),
-  },
-  {
-    title: "김지민 온라인",
-    start: new Date(2025, 4, 27, 0, 0),
-    end: new Date(2025, 4, 28, 0, 0),
-  },
-  {
-    title: "김지민 온라인",
-    start: new Date(2025, 4, 27, 0, 0),
-    end: new Date(2025, 4, 28, 0, 0),
-  },
-];
-
 function App() {
   const localizer = momentLocalizer(moment);
   const dateString = useSelector((state: RootState) => state.dateStore.date);
+  const schedules = useSelector(
+    (state: RootState) => state.scheduleStore.schedules
+  );
+  const formattedEvents = schedules.map((event) => ({
+    ...event,
+    start: new Date(event.start),
+    end: new Date(event.end),
+  }));
   const date = dateString ? new Date(dateString) : undefined;
 
   return (
@@ -49,7 +34,7 @@ function App() {
             <Calendar
               defaultView="week"
               localizer={localizer}
-              events={events}
+              events={formattedEvents}
               date={date}
               startAccessor="start"
               endAccessor="end"

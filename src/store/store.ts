@@ -1,11 +1,13 @@
 import dateSlice from "@/store/dateSlice";
 import modalSlice from "@/store/modalSlice";
+import scheduleSlice from "@/store/scheduleSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
   reducer: {
     dateStore: dateSlice.reducer,
     modalStore: modalSlice.reducer,
+    scheduleStore: scheduleSlice.reducer,
   },
 });
 
