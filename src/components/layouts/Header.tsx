@@ -10,10 +10,18 @@ import CheckCircleIcon from "@/assets/icons/check_circle.svg?react";
 import MenuIcon from "@/assets/icons/menu.svg?react";
 import ProfileIcon from "@/assets/icons/profile.svg?react";
 import IconWrapper from "@/components/common/IconWrapper";
+import { useDispatch } from "react-redux";
+import { setDate } from "@/store/dateSlice";
 
 export default function Header() {
   const date = new Date();
   const day = date.getDate();
+
+  const dispatch = useDispatch();
+
+  const onTodayBtnClick = () => {
+    dispatch(setDate(date.toISOString()));
+  };
 
   return (
     <header className="flex items-center *:flex *:items-center h-16 w-full px-2 py-3 bg-[#F7FAFD] text-gray-90">
@@ -33,7 +41,12 @@ export default function Header() {
       </section>
 
       <section className="shrink-0">
-        <Button className="mr-6 py-2 px-6 hover:bg-[#E8EBEE]">오늘</Button>
+        <Button
+          className="mr-6 py-2 px-6 hover:bg-[#E8EBEE] cursor-pointer"
+          onClick={() => onTodayBtnClick()}
+        >
+          오늘
+        </Button>
         <div className="flex mr-7">
           <IconWrapper wrapperSize="size-8">
             <LeftArrowIcon className="size-3 text-[#444746]" />

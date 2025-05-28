@@ -113,6 +113,7 @@ export default function RegisterModal() {
         };
 
         dispatch(addSchedule(payload));
+        dispatch(closeModal());
       }
     }
   };
