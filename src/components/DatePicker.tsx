@@ -3,7 +3,7 @@ import { ko } from "react-day-picker/locale";
 import "@/styles/datePicker.scss";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
-import { setDate } from "@/store/dateSlice";
+import { setDate, setMonth } from "@/store/dateSlice";
 
 interface Props {
   className?: string;
@@ -11,8 +11,11 @@ interface Props {
 }
 
 export default function DatePicker({ className, setIsDropOpen }: Props) {
+  // 선택한 일, 월 상태 관리
   const dateString = useSelector((state: RootState) => state.dateStore.date);
+  const monthString = useSelector((state: RootState) => state.dateStore.month);
   const date = new Date(dateString);
+  const month = new Date(monthString);
   const dispatch = useDispatch();
   const defaultClassNames = getDefaultClassNames();
 
@@ -27,7 +30,8 @@ export default function DatePicker({ className, setIsDropOpen }: Props) {
           setIsDropOpen?.();
         }
       }}
-      month={date}
+      month={month}
+      onMonthChange={(newMonth) => dispatch(setMonth(newMonth.toISOString()))}
       formatters={{
         formatCaption(month) {
           return month.toLocaleDateString("ko-KR", {
