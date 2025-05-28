@@ -8,17 +8,17 @@ import { X } from "lucide-react";
 import { Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 
-interface SchedulDetailProps {
+interface ScheduleDetailProps {
   isOpen: boolean;
   handleClose: () => void;
   schedule: Schedule;
 }
 
-export default function SchedulDetailModal({
+export default function ScheduleDetailModal({
   isOpen,
   handleClose,
   schedule,
-}: SchedulDetailProps) {
+}: ScheduleDetailProps) {
   const start = new Date(schedule.start);
   const end = new Date(schedule.end);
   const { startYear, startMonth, startDate, startDay, startHour, startMin } = {
