@@ -64,7 +64,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex items-center *:flex *:items-center h-16 w-full px-2 py-3 bg-[#F7FAFD] text-gray-90">
+    <header className="flex items-center *:flex *:items-center h-16 w-full px-2 py-3 bg-[#F8FAFD] text-gray-90">
       <section className="sm:flex sm:w-62 sm:shrink-0 sm:opacity-100 w-0 opacity-0">
         <div className="flex justify-center items-center rounded-full size-12 hover:bg-[#E8EBEE] cursor-pointer">
           <HamburgerIcon className="size-4 text-[#444746]" />

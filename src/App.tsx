@@ -53,7 +53,7 @@ function App() {
   );
 
   return (
-    <div className="flex flex-col h-screen w-screen">
+    <div className="flex flex-col h-screen">
       <RegisterModal />
       <ScheduleDetailModal
         isOpen={isDetailModalOpen}
@@ -61,10 +61,10 @@ function App() {
         schedule={scheduleDetail}
       />
       <Header />
-      <div className="flex flex-1 h-full">
+      <div className="sm:flex flex-1 h-full">
         <Sidebar />
-        <main className="flex bg-[#F7FAFD] w-full">
-          <div className="flex-1 h-full">
+        <main className="flex bg-[#F7FAFD] h-full w-full">
+          <div className="flex-1">
             <Calendar
               defaultView={viewType}
               view={viewType}
@@ -92,10 +92,10 @@ function App() {
                   header: CustomWeekHeader,
                 },
               }}
-              className="max-w-[1150px] max-h-[720px] bg-white rounded-3xl overflow-hidden"
+              className="bg-white rounded-3xl overflow-hidden"
             />
           </div>
-          <section className="flex flex-col items-center justify-start w-13 pt-4 pr-2 gap-8 *:size-6">
+          <section className="sm:flex flex-col items-center justify-start w-13 pt-4 pr-2 gap-8 *:size-6 hidden">
             <HomeIcon />
             <CheckCircle className="size-5" />
             <HumanIcon />

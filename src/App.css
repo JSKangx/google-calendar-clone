@@ -20,7 +20,7 @@
   --font-sans: "Product Sans Light", sans-serif;
 
   /* breackpoint */
-  --breakpoint-sm: 600px;
+  --breakpoint-sm: 700px;
 }
 
 @theme inline {

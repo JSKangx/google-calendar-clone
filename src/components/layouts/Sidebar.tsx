@@ -13,7 +13,7 @@ export default function Sidebar() {
   const dispatch = useDispatch();
 
   return (
-    <aside className="w-64 shrink-0 pl-4 pr-7 box-border bg-[#F7FAFD]">
+    <aside className="w-full sm:w-64 shrink-0 pl-4 pr-7 box-border bg-[#F7FAFD]">
       <div className="flex items-center h-21">
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -28,7 +28,7 @@ export default function Sidebar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="pl-[14px]">
+      <div className="flex w-full justify-center pl-[14px] pb-10">
         <DatePicker />
       </div>
     </aside>
