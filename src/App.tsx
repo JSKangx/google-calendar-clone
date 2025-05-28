@@ -1,5 +1,12 @@
+import { lazy } from "react";
+
+const RegisterModal = lazy(() => import("@/components/calendar/RegisterModal"));
+const ScheduleDetailModal = lazy(
+  () => import("@/components/calendar/ScheduleDetailModal")
+);
 import Header from "@/components/layouts/Header";
 import Sidebar from "@/components/layouts/Sidebar";
+
 import CustomWeekHeader from "@/components/calendar/CustomWeekHeader";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -8,9 +15,7 @@ import "@/styles/calendar.scss";
 import { getFormattedDate } from "@/utils/getFormattedDate";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
-import RegisterModal from "@/components/calendar/RegisterModal";
 import { useState } from "react";
-import SchedulDetailModal from "@/components/calendar/SchedulDetailModal";
 import { type Schedule } from "@/store/scheduleSlice";
 
 function App() {
@@ -39,7 +44,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen w-screen">
       <RegisterModal />
-      <SchedulDetailModal
+      <ScheduleDetailModal
         isOpen={isDetailModalOpen}
         handleClose={() => setIsDetailModalOpen(false)}
         schedule={scheduleDetail}
