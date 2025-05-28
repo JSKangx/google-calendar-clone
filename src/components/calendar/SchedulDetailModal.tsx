@@ -1,20 +1,22 @@
 import IconWrapper from "@/components/common/IconWrapper";
-import type { Schedule } from "@/store/scheduleSlice";
+import { removeSchedule, type Schedule } from "@/store/scheduleSlice";
+import type { RootState } from "@/store/store";
 import getDay from "@/utils/getDay";
 import { getPeriodTime } from "@/utils/getPeriodTime";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { X } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface SchedulDetailProps {
   isOpen: boolean;
-  setIsOpen: () => void;
+  handleClose: () => void;
   schedule: Schedule;
 }
 
 export default function SchedulDetailModal({
   isOpen,
-  setIsOpen,
+  handleClose,
   schedule,
 }: SchedulDetailProps) {
   const start = new Date(schedule.start);
@@ -38,17 +40,35 @@ export default function SchedulDetailModal({
   const isSameDate =
     startYear === endYear && startMonth === endMonth && startDate === endDate;
 
+  // 일정 삭제
+  const schedules = useSelector(
+    (state: RootState) => state.scheduleStore.schedules
+  );
+  const dispatch = useDispatch();
+  const onDeleteSchedule = () => {
+    const ok = confirm("이 일정을 삭제하시겠습니까?");
+    if (ok) {
+      const matched = schedules.find((item) => item.id === schedule.id);
+      if (matched) {
+        console.log(matched.id);
+        dispatch(removeSchedule(matched.id));
+        handleClose();
+      }
+    }
+  };
+  console.log(schedules);
+
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen()}>
+    <Dialog open={isOpen} onClose={() => handleClose()}>
       <div className="flex fixed inset-0 items-center justify-center">
         <DialogPanel className="flex flex-col bg-gray-10 rounded-2xl p-6 drop-shadow-lg/50">
           <DialogTitle className="flex mb-2">
             <span className="text-2xl">{schedule.title}</span>
             <IconWrapper wrapperSize="size-4 ml-auto inline-flex">
-              <Trash2 className="size-4" />
+              <Trash2 className="size-4" onClick={() => onDeleteSchedule()} />
             </IconWrapper>
             <IconWrapper wrapperSize="size-4 inline-flex">
-              <X className="size-4" onClick={() => setIsOpen()} />
+              <X className="size-4" onClick={() => handleClose()} />
             </IconWrapper>
           </DialogTitle>
           {isSameDate ? (

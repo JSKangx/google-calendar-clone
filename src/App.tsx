@@ -41,7 +41,7 @@ function App() {
       <RegisterModal />
       <SchedulDetailModal
         isOpen={isDetailModalOpen}
-        setIsOpen={() => setIsDetailModalOpen(false)}
+        handleClose={() => setIsDetailModalOpen(false)}
         schedule={scheduleDetail}
       />
       <Header />
