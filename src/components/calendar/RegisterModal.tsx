@@ -96,22 +96,25 @@ export default function RegisterModal() {
     const end = convertToDate(baseDate, endTime);
 
     // 제목 입력값 검증
-    if (formData.title.trim() === "") alert("일정 제목은 필수 입력입니다.");
+    if (formData.title.trim() === "") {
+      alert("일정 제목은 필수 입력입니다.");
+    } else {
+      // 시간 입력값 검증
+      if (start.getTime() > end.getTime())
+        alert(
+          "일정 시작 시각보다 더 빠른 시각을 종료 시각으로 설정할 수 없습니다."
+        );
+      else {
+        const payload = {
+          id: schedules[schedules.length - 1].id + 1,
+          title: formData.title,
+          start: start.toISOString(),
+          end: end.toISOString(),
+        };
 
-    // 시간 입력값 검증
-    if (start.getTime() > end.getTime())
-      alert(
-        "일정 시작 시각보다 더 빠른 시각을 종료 시각으로 설정할 수 없습니다."
-      );
-
-    const payload = {
-      id: schedules[schedules.length - 1].id + 1,
-      title: formData.title,
-      start: start.toISOString(),
-      end: end.toISOString(),
-    };
-
-    dispatch(addSchedule(payload));
+        dispatch(addSchedule(payload));
+      }
+    }
   };
 
   return (

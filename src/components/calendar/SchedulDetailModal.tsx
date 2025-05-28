@@ -60,7 +60,7 @@ export default function SchedulDetailModal({
 
   return (
     <Dialog open={isOpen} onClose={() => handleClose()}>
-      <div className="flex fixed inset-0 items-center justify-center">
+      <div className="flex fixed inset-0 items-center justify-center z-30">
         <DialogPanel className="flex flex-col bg-gray-10 rounded-2xl p-6 drop-shadow-lg/50">
           <DialogTitle className="flex mb-2">
             <span className="text-2xl">{schedule.title}</span>
