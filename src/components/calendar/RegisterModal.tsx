@@ -56,6 +56,7 @@ export default function RegisterModal() {
     setValue("title", "");
     setValue("startTime", getStartTime(hour, min));
     setValue("endTime", getStartTime(hour + 1, min));
+    setEndDate(date);
   };
 
   // 일정 입력 드롭다운 상태 관리
@@ -74,7 +75,8 @@ export default function RegisterModal() {
   const hour = now.getHours();
   const min = now.getMinutes();
   // 끝나는 날짜 상태관리
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date(dateString));
+  // 달력 선택 날짜 변경시 모달에 입력한 끝날짜도 변경
   const { endMonth, endDay, endWeekDay } = {
     endMonth: endDate?.getMonth(),
     endDay: endDate?.getDate(),
@@ -98,10 +100,9 @@ export default function RegisterModal() {
     (state: RootState) => state.scheduleStore.schedules
   );
   const onSubmit = (formData: FormValues) => {
-    const baseDate = new Date(dateString); // DatePicker로 선택된 날짜
     const startTime = parseTimeLabel(formData.startTime);
     const endTime = parseTimeLabel(formData.endTime);
-    const start = convertToDate(baseDate, startTime);
+    const start = convertToDate(date, startTime);
     const end = convertToDate(endDate, endTime);
 
     // 제목 입력값 검증
@@ -126,7 +127,6 @@ export default function RegisterModal() {
       }
     }
   };
-  console.log();
 
   return (
     <Dialog open={isOpen} onClose={() => handleCloseModal()} className="z-10">

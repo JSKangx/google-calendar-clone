@@ -32,6 +32,7 @@ export default function DatePicker({ className, setIsDropOpen }: Props) {
       }}
       month={month}
       onMonthChange={(newMonth) => dispatch(setMonth(newMonth.toISOString()))}
+      showOutsideDays
       formatters={{
         formatCaption(month) {
           return month.toLocaleDateString("ko-KR", {
