@@ -1,3 +1,4 @@
+import calendarViewSlice from "@/store/calendarViewSlice";
 import dateSlice from "@/store/dateSlice";
 import modalSlice from "@/store/modalSlice";
 import scheduleSlice from "@/store/scheduleSlice";
@@ -8,6 +9,7 @@ const store = configureStore({
     dateStore: dateSlice.reducer,
     modalStore: modalSlice.reducer,
     scheduleStore: scheduleSlice.reducer,
+    calendarViewStore: calendarViewSlice.reducer,
   },
 });
 

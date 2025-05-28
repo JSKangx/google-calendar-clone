@@ -13,8 +13,10 @@ import IconWrapper from "@/components/common/IconWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { setDate } from "@/store/dateSlice";
 import type { RootState } from "@/store/store";
+import { setView } from "@/store/calendarViewSlice";
 
 export default function Header() {
+  // 오늘 날짜
   const today = new Date();
   const day = today.getDate();
 
@@ -28,7 +30,6 @@ export default function Header() {
     selectedMonth: selectedDate.getMonth() + 1,
     selectedDay: selectedDate.getDate(),
   };
-
   const dispatch = useDispatch();
   const onTodayBtnClick = () => {
     dispatch(setDate(today.toISOString()));
@@ -48,6 +49,18 @@ export default function Header() {
         new Date(selectedYear, selectedMonth - 1, selectedDay + 7).toISOString()
       )
     );
+  };
+
+  // 캘린더 뷰 변경하기 위한 상태 관리
+  const viewType = useSelector(
+    (state: RootState) => state.calendarViewStore.view
+  );
+  const switchViewType = () => {
+    if (viewType === "week") {
+      dispatch(setView("month"));
+    } else {
+      dispatch(setView("week"));
+    }
   };
 
   return (
@@ -101,7 +114,12 @@ export default function Header() {
         <IconWrapper wrapperSize="size-10">
           <SettingIcon className="size-5" />
         </IconWrapper>
-        <Button className="text-gray-90 py-2 px-6 mx-2">주</Button>
+        <Button
+          className="text-gray-90 py-2 px-6 mx-2 cursor-pointer hover:bg-gray-20"
+          onClick={() => switchViewType()}
+        >
+          {viewType === "week" ? "주" : "월"}
+        </Button>
         <Button className="flex px-5 mx-2 *:py-2">
           <div className="pr-3 border-r">
             <CalendarIcon className="size-5" />

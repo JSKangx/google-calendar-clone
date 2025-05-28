@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface InitailState {
+interface InitialState {
   date: string;
   month: string;
 }
 
-const initialState: InitailState = {
+const initialState: InitialState = {
   date: new Date().toISOString(), // state에 직렬화 값을 넣어야 함.
   month: new Date().toISOString(),
 };

@@ -28,18 +28,26 @@ function App() {
     start: new Date().toISOString(),
     end: new Date().toISOString(),
   });
-
+  // 한국어로 변경하는 로컬라이저
   const localizer = momentLocalizer(moment);
+
+  // 선택된 날짜, 스케쥴 상태관리
   const dateString = useSelector((state: RootState) => state.dateStore.date);
   const schedules = useSelector(
     (state: RootState) => state.scheduleStore.schedules
   );
+  // 시간 데이터 타입 가공
   const formattedEvents = schedules.map((event) => ({
     ...event,
     start: new Date(event.start),
     end: new Date(event.end),
   }));
   const date = dateString ? new Date(dateString) : undefined;
+
+  // 캘린더 뷰 상태관리
+  const viewType = useSelector(
+    (state: RootState) => state.calendarViewStore.view
+  );
 
   return (
     <div className="flex flex-col h-screen w-screen">
@@ -55,7 +63,8 @@ function App() {
         <main className="bg-[#F7FAFD] w-full">
           <div className="h-full">
             <Calendar
-              defaultView="week"
+              defaultView={viewType}
+              view={viewType}
               localizer={localizer}
               events={formattedEvents}
               date={date}
